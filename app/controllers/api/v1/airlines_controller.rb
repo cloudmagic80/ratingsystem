@@ -5,12 +5,16 @@ module Api
   
         # GET /api/v1/airlines
         def index
-          render json: serializer(airlines, options)
+          airlines = Airline.all
+         # render json: serializer(airlines, options)
+          render json: AirlineSerializer.new(airlines).serialized_json
         end
         
         # GET /api/v1/airlines/:slug
         def show
-          render json: serializer(airline, options)
+          airline = Airline.find_by(slug: params[:slug])
+          render json: AirlineSerializer.new(airlines).serialized_json
+          #render json: serializer(airline, options)
         end
   
         # POST /api/v1/airlines
@@ -24,7 +28,7 @@ module Api
           end
         end
   
-        # PATCH /api/v1/airlines/:slug
+        # PATCH /api/v1/arails roirlines/:slug
         def update
           airline = Airline.find_by(slug: params[:slug])
   
